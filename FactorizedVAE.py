@@ -157,20 +157,11 @@ optim_VAE = optim.Adam(VAE.parameters(), lr=lr_D, betas=(beta1_D, beta2_D))
 optim_D = optim.Adam(D.parameters(), lr=lr_D, betas=(beta1_D, beta2_D))
 
 
-def net_mode(self, train):
-    for net in self.nets:
-        if train:
-            net.train()
-
-        else:
-            net.eval()
-
-
 ones = torch.ones(batch_size, dtype=torch.long, device=device)
 zeros = torch.zeros(batch_size, dtype=torch.long, device=device)
 
 
-for epoch in tqdm((1000)):
+for epoch in range(1000):
     train_loss = 0
 
     for batch_idx, (x_true1,_) in enumerate(data_loader):
