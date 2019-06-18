@@ -161,7 +161,7 @@ ones = torch.ones(batch_size, dtype=torch.long, device=device)
 zeros = torch.zeros(batch_size, dtype=torch.long, device=device)
 
 
-for epoch in range(1000):
+for epoch in max_iter:
     train_loss = 0
 
     for batch_idx, (x_true1,_) in enumerate(data_loader):
