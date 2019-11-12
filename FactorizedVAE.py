@@ -74,15 +74,6 @@ class FactorVAE1(nn.Module):
             nn.ConvTranspose2d(28, 1, 4, 2, 1),
             nn.Sigmoid(),
         )
-        self.weight_init()
-
-    def weight_init(self, mode='normal'):
-
-        initializer = normal_init
-
-        for block in self._modules:
-            for m in self._modules[block]:
-                initializer(m)
 
     def reparametrize(self, mu, logvar):
         std = logvar.mul(0.5).exp_()
@@ -102,16 +93,6 @@ class FactorVAE1(nn.Module):
             x_recon = self.decode(z).view(x.size())
             return x_recon, mu, logvar, z.squeeze()
 
-
-def normal_init(m):
-    if isinstance(m, (nn.Linear, nn.Conv2d)):
-        init.normal(m.weight, 0, 0.02)
-        if m.bias is not None:
-            m.bias.data.fill_(0)
-    elif isinstance(m, (nn.BatchNorm1d, nn.BatchNorm2d)):
-        m.weight.data.fill_(1)
-        if m.bias is not None:
-            m.bias.data.fill_(0)
 
 
 def recon_loss(x_recon, x):
